@@ -96,10 +96,10 @@ class RiffusionNode:
 
         #Encode samples and return to calling function
         wav_bytes = io.BytesIO()
-        wavefile.write(wav_bytes, sample_rate, samples.astype(np.int16))
+        wavfile.write(wav_bytes, sample_rate, samples.astype(np.int16))
         wav_bytes.seek(0)
 
-        duration_s = float(len(sample))/sample_rate
+        duration_s = float(len(samples))/sample_rate
 
         return wav_bytes, duration_s
 
