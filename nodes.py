@@ -155,7 +155,7 @@ class RiffusionNode:
         self.process_wav(new_filename)
 
         results.append({
-            "filename": audio,
+            "filename": new_filename,
             "subfolder": output_dir,
             "type": self.type
         })
