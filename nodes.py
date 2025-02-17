@@ -153,6 +153,14 @@ class RiffusionNode:
             f.write(audio.getbuffer())
 
         self.process_wav(new_filename)
+
+        results.append({
+            "filename": audio,
+            "subfolder": output_dir,
+            "type": self.type
+        })
+
+        return { "ui": { "audio": results } }
         
 
 
