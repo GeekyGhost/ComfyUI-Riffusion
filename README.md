@@ -14,3 +14,8 @@ Install via Comfy Registry: https://registry.comfy.org/publishers/traugdor/nodes
 ## Usage
 
 The extension adds a new node "Riffusion" under the audio category.
+
+## TODO
+- Add support for multiple images (as input) to generate a single audio file for longer audio lengths
+- Add support for multiple images to generate multiple audio files
+- Add support for other audio types (wav, mp3, ogg, etc.)
