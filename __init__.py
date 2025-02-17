@@ -32,7 +32,7 @@ required_packages = read_requirements()
 for package in required_packages:
     if package.lower() not in [pkg.lower() for pkg in installed_packages]:
         install_package(package)
-    print("All packages needed by Riffusion are installed.")
+print("All packages needed by Riffusion are installed.")
 
 ### Don't import nodes until all packages are installed ###
 from .nodes import NODE_CLASS_MAPPINGS, NODE_DISPLAY_NAME_MAPPINGS
