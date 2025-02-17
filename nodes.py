@@ -118,6 +118,7 @@ class RiffusionNode:
         # Get the current file's directory and go up two levels
         current_dir = Path(__file__).parent
         output_dir = current_dir.parent.parent / 'output'
+        results = list()
         
         # Create the output directory if it doesn't exist
         output_dir.mkdir(parents=True, exist_ok=True)
