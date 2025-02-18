@@ -23,7 +23,7 @@ class RiffusionNode:
         return {
             "required": {
                 'spectrogram': ("IMAGE",),
-                'filename_prefix': ("STRING", {"default": "Riffusion_"}),
+                'filename_prefix': ("STRING", {"default": "Riffusion"}),
 
             },
         }
@@ -127,14 +127,17 @@ class RiffusionNode:
         list_of_files = glob.glob(str(output_dir / f"{filename_prefix}*"))
 
         # Get the highest number in the list of files
-        max_number = 0
-        for file in list_of_files:
-            number = int(file.split("_")[-1].split(".")[0]) 
-            max_number = max(max_number, number)
+        if not list_of_files:
+            new_number = 0
+        else:
+            max_number = 0
+            for file in list_of_files:
+                number = int(file.split("_")[-1].split(".")[0]) 
+                max_number = max(max_number, number)
+            # Increment the number and add it to the filename and add the extension
+            new_number = max_number + 1
 
-        # Increment the number and add it to the filename and add the extension based on the output_type
-        new_number = max_number + 1
-        new_filename = f"{filename_prefix}{new_number}.wav"
+        new_filename = f"{filename_prefix}_{new_number:05}_.wav"
 
         # now load the spectrogram and convert it to a audio file
         MAX_FILES = 1
@@ -149,11 +152,14 @@ class RiffusionNode:
         audio, duration = self.get_wave_bytes_from_spectrogram(spec)
         print(f"Duration of {new_filename}: {duration}")
 
+        # get full output path
+        full_output_path = os.path.join(self.output_dir, new_filename)
 
-        with open(new_filename, 'wb') as f:
+        # save the audio
+        with open(full_output_path, 'wb') as f:
             f.write(audio.getbuffer())
 
-        self.process_wav(new_filename)
+        self.process_wav(full_output_path)
 
         results.append({
             "filename": new_filename,
