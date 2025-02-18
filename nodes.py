@@ -158,7 +158,7 @@ class RiffusionNode:
         results.append({
             "filename": new_filename,
             "subfolder": output_dir,
-            "type": self.type
+            "type": "output"
         })
 
         return { "ui": { "audio": results } }
