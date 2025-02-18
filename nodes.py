@@ -140,6 +140,8 @@ class RiffusionNode:
         new_filename = f"{filename_prefix}_{new_number:05}_.wav"
 
         # now load the spectrogram and convert it to a audio file
+        # TODO: Add support for multiple images (as input) to generate a single audio file for longer audio lengths
+        # TODO: Add support for multiple images to generate multiple audio files
         MAX_FILES = 1
         spec = None
         for (batch_number, image) in enumerate(spectrogram):
@@ -147,7 +149,7 @@ class RiffusionNode:
             if batch_number >= MAX_FILES:
                 break
             i = 255. * image.cpu().numpy()
-            spec  = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
+            spec = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
         
         audio, duration = self.get_wave_bytes_from_spectrogram(spec)
         print(f"Duration of {new_filename}: {duration}")
@@ -159,7 +161,15 @@ class RiffusionNode:
         with open(full_output_path, 'wb') as f:
             f.write(audio.getbuffer())
 
-        self.process_wav(full_output_path)
+        # TODO: add support for other audio types (wav, flac, mp3, ogg, aac)
+        # deprecated until I figure out how to save as other audio types
+        # Audio file formats to use:
+        #   .wav
+        #   .flac
+        #   .mp3
+        #   .ogg
+        #   .aac
+        #self.process_wav(full_output_path)
 
         results.append({
             "filename": new_filename,
