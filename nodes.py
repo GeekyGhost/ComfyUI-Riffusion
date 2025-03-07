@@ -23,7 +23,7 @@ class RiffusionNode:
         return {
             "required": {
                 'spectrogram': ("IMAGE",),
-                'filename_prefix': ("STRING", {"default": "Riffusion"}),
+                'filename_prefix': ("STRING", {"default": "audio\Riffusion"}),
 
             },
         }
@@ -132,7 +132,7 @@ class RiffusionNode:
         else:
             max_number = 0
             for file in list_of_files:
-                number = int(file.split("_")[-1].split(".")[0]) 
+                number = int(file.split("_")[-2]) 
                 max_number = max(max_number, number)
             # Increment the number and add it to the filename and add the extension
             new_number = max_number + 1
@@ -155,7 +155,7 @@ class RiffusionNode:
         print(f"Duration of {new_filename}: {duration}")
 
         # get full output path
-        full_output_path = os.path.join(self.output_dir, new_filename)
+        full_output_path = os.path.join(output_dir, new_filename)
 
         # save the audio
         with open(full_output_path, 'wb') as f:
