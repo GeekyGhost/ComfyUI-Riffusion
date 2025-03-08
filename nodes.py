@@ -173,7 +173,7 @@ class RiffusionNode:
 
         results.append({
             "filename": new_filename,
-            "subfolder": output_dir,
+            "subfolder": str(output_dir),
             "type": "output"
         })
 
